@@ -15,10 +15,11 @@ namespace ChatAppTdd.AuthModule
 
         static SignUpFailReason()
         {
-            _errors.Add(SignUpFailType.LoginWrongFormat, new ErrorTexts("", ""));
-            _errors.Add(SignUpFailType.LoginExists, new ErrorTexts("", ""));
+            _errors.Add(SignUpFailType.LoginExists, new ErrorTexts("Указанный логин уже существует", "Login already exists"));
+            _errors.Add(SignUpFailType.LoginWrongFormat, new ErrorTexts("", ""));          
             _errors.Add(SignUpFailType.PasswordWrongFormat, new ErrorTexts("", ""));
             _errors.Add(SignUpFailType.TitleWrongFormat, new ErrorTexts("", ""));
+            _errors.Add(SignUpFailType.Error, new ErrorTexts("Ошибка. Повторите позже", "Error. Try again later"));
         }
 
         public static string GetText(SignUpFailType type, LocalesSupported locale)

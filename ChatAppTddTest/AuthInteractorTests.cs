@@ -28,14 +28,11 @@ namespace ChatAppTddTest
 
         //on login add args validation: not null, 
         
-        //add custom validation for login
-        //add custom validation for password
-        //add custom validation for title
-
+    
             //sessionId is 14 nums length
 
 
-        //not empty - replace to presenter
+       
 
         [Test]
         public void AuthInteractorOnLoginEventHandlingTest()

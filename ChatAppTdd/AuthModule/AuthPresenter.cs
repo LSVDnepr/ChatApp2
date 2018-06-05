@@ -15,6 +15,11 @@ namespace ChatAppTdd.AuthModule
 
         }
 
+        public AuthPresenter(IAuthView view, IAuthRouter router, LocalesSupported locale)
+        {
+
+        }
+
 
         public void LoginFail(LoginFailType failReason)
         {
