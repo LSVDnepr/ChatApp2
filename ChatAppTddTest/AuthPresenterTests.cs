@@ -15,6 +15,7 @@ namespace ChatAppTddTest
         {
             var mockView = new Mock<IAuthView>(MockBehavior.Strict);
             Assert.Throws<ArgumentNullException>(() => new AuthPresenter(mockView.Object, null));
+
         }
 
 
