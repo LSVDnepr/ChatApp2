@@ -73,6 +73,7 @@ namespace ChatAppTddTest
         [Test]
         public void AuthPresenterOnLocaleChangedRusEventHandlingTest()
         {
+
             var mockView = new Mock<IAuthView>(MockBehavior.Strict);
             mockView.Setup(t => t.SetLocalizedData(new RuLocalizedViewData()));
             AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
