@@ -19,10 +19,10 @@ namespace ChatAppTdd.Utils
         public static bool ValidatePassword(string password)
         {
 
-            //Password validation criteria
-            //(min length = 1, max = 50 chars, 
+            //Password validation criteria min length = 2!!! not 1
+            //(min length = 2, max = 50 chars, 
             //Any + digits apostrophe('), grave accent(`), hyphen(-), dash(–), numbers
-
+            //Password must contains at least one letter and digit.
             throw new NotImplementedException();
             //  return true;
         }
