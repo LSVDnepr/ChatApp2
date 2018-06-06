@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using ChatAppTdd.Entities;
+using ChatAppTdd.AuthModule;
 
 namespace ChatAppTdd.Repository
 {

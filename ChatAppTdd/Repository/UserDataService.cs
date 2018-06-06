@@ -5,7 +5,7 @@ using ChatAppTdd.Entities;
 
 using ChatAppTdd.Repository;
 
-namespace ChatAppTdd.AuthModule
+namespace ChatAppTdd.Repository
 {
     public class UserDataService : IUserDataService
     {
