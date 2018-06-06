@@ -93,7 +93,7 @@ is assigned on viewEvent OnLocaleChanged();
             var mockRouter = new Mock<IAuthRouter>(MockBehavior.Strict);
             var mockView = new Mock<IAuthView>(MockBehavior.Strict);
             mockView.Setup(t=>t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            IAuthPresenter prsenter =new AuthPresenter(mockView.Object, mockRouter.Object);
+            IAuthPresenter prsenter = new AuthPresenter(mockView.Object, mockRouter.Object);
             mockView.Verify(t=>t.SetLocalizedData(It.IsAny<ILocalizedViewData>()),Times.Once);
         }
 
@@ -151,10 +151,12 @@ is assigned on viewEvent OnLocaleChanged();
             var mockView = new Mock<IAuthView>(MockBehavior.Strict);
             mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
             AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            presenter.OnLogInAttempt += (l, p) => onLoginCalled++; 
+            //presenter.OnLogInAttempt += (l, p) => onLoginCalled++; 
+            presenter.OnLogInAttempt += (l, p) => Assert.Pass();
             mockView.Raise(t => t.OnLoginBtnPressed += null, "Login", "Password");
             mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            Assert.That(onLoginCalled,Is.EqualTo(1));
+            //Assert.That(onLoginCalled,Is.EqualTo(1));
+            Assert.Fail("Don't invoke");
         }
 
 

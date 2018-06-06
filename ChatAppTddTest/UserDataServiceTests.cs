@@ -50,7 +50,7 @@ namespace ChatAppTddTest
             {
                 Assert.That(ex.LoginFailType,Is.EqualTo(LoginFailType.WrongLogin));
             }
-            Assert.Fail("Exception LoginFailType.WrongLogin expected");
+         
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace ChatAppTddTest
             {
                 Assert.That(ex.LoginFailType, Is.EqualTo(LoginFailType.WrongPassword));
             }
-            Assert.Fail("Exception LoginFailType.WrongPassword expected");
+        
         }
 
         [Test]
@@ -86,14 +86,14 @@ namespace ChatAppTddTest
         public void CheckLoginExistsPositiveTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.CheckLoginExists("login"), Is.EqualTo(true));
+            Assert.That(service.CheckLoginExists("login"), Is.True);
         }
 
         [Test]
         public void CheckLoginExistsNegativeTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.CheckLoginExists("nonexistent login"), Is.EqualTo(false));
+            Assert.That(service.CheckLoginExists("nonexistent login"), Is.False);
         }
 
         [Test]
@@ -120,6 +120,8 @@ namespace ChatAppTddTest
             Assert.That(usrData.Title, Is.Not.Null);
             Assert.That(usrData.UserID, Is.Not.Null);
         }
+
+
         [Test]
         public void GetUserDataNegativeTest()
         {
@@ -145,7 +147,7 @@ namespace ChatAppTddTest
         public void GetUserIdDataPositiveTest()
         {
             IUserDataService service = new UserDataService();
-            string id = service.GetUserIdBySessionId(service.AuthorizeUser("login", "password"));
+            string id = service.GetUserIdBySessionId(service.AuthorizeUser("login12", "password12"));
             Assert.That(id, Is.Not.Null);
         }
         [Test]
@@ -159,45 +161,52 @@ namespace ChatAppTddTest
         public void RegisterUserLoginNullTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.RegisterUser(null,"Password","Title"), Throws.ArgumentNullException);
+            Assert.That(service.RegisterUser(null,"Password12","Title12"), Throws.ArgumentNullException);
         }
         [Test]
         public void RegisterUserPasswordNullTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.RegisterUser("Login", null, "Title"), Throws.ArgumentNullException);
+            Assert.That(service.RegisterUser("Login12", null, "Title12"), Throws.ArgumentNullException);
         }
         [Test]
         public void RegisterUserTitleNullTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.RegisterUser("Login", "Password", null), Throws.ArgumentNullException);
+            Assert.That(service.RegisterUser("Login12", "Password12", null), Throws.ArgumentNullException);
         }
 
         [Test]
         public void RegisterUserLoginEmptyTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.RegisterUser("", "Password", "Title"), Throws.ArgumentException);
+            Assert.That(service.RegisterUser("", "Password12", "Title12"), Throws.ArgumentException);
         }
         [Test]
         public void RegisterUserPasswordEmptyTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.RegisterUser("Login", "", "Title"), Throws.ArgumentException);
+            Assert.That(service.RegisterUser("Login12", "", "Title12"), Throws.ArgumentException);
         }
         [Test]
         public void RegisterUserTitleEmptyTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.RegisterUser("Login", "Password", ""), Throws.ArgumentException);
+            Assert.That(service.RegisterUser("Login12", "Password12", ""), Throws.ArgumentException);
         }
 
         [Test]
         public void RegisterUserAlreadyExistsTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.RegisterUser("Login", "Password", "Title"), Throws.ArgumentException);
+            service.RegisterUser("Login12", "Password12", "Title12");
+            try
+            {
+               service.RegisterUser("Login12", "Password12", "Title12");
+            }catch (ChatSignUpException ex)
+            {
+                Assert.That(ex.SignUpFailType, Is.EqualTo(SignUpFailType.LoginExists));
+            }
         }
 
         [Test]

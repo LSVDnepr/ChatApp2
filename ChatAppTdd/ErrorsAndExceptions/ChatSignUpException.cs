@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ChatAppTdd.AuthModule
 {
-    public class ChatSignUpException
+    public class ChatSignUpException : Exception
     {
         private SignUpFailType _signUpFailType;
 

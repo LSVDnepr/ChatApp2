@@ -230,7 +230,7 @@ namespace ChatAppTddTest
         //testing if interactor validates password accordance to business requirements
         [TestCase("p")]//less than min length
         [TestCase("5")]//less than min length
-        [TestCase("thisIsReallyLongPasswordForTestingIfInteractorValidatesPasswordMaximumLengthAccordingToProvidedBusinessRequirements")]//moreThanMaxLength
+        [TestCase("thisIsReallyLongPasswordForTestingIfInteractorValidatesPasswordMaximumLengthAccordingToProvidedBusinessRequirementsAndReturnsCorrectErrorInResponse")]//moreThanMaxLength
         [TestCase("пароль 42")]//contains forbidden chars
         [TestCase("password 42")]//contains forbidden chars
         [TestCase("password")]//contains letters only

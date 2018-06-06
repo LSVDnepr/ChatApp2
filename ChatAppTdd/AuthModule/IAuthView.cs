@@ -16,7 +16,8 @@ namespace ChatAppTdd.AuthModule
         void SetLocalizedData(ILocalizedViewData localeData);
         void ShowErrorMessage(string message);
 
-        string GetCurrentLocale();
+       // LocalesSupported GetCurrentLocale();
+       string GetCurrentLocale();
 
 
 

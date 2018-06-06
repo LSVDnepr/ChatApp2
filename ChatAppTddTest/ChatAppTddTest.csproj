@@ -70,6 +70,7 @@
     <Compile Include="AuthPresenterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDataServiceTests.cs" />
+    <Compile Include="ValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
