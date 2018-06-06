@@ -10,6 +10,17 @@ namespace ChatAppTddTest
     [TestFixture]
     public class AuthInteractorTests
     {
+        //Testing Constructor
+        //testing if constructor throws Argument null exception if service is null
+        [Test]
+        public void AuthInteractorConstructorServiceNullArgsTest()
+        {
+            var presenter = new Mock<IAuthPresenter>(MockBehavior.Strict);
+            Assert.Throws<ArgumentNullException>(() => new AuthInteractor(null, presenter.Object));
+        }
+
+
+        //testing if constructor throws Argument null exception if presenter is null
         [Test]
         public void AuthInteractorConstructorPresenterNullArgsTest()
         {
@@ -18,21 +29,25 @@ namespace ChatAppTddTest
         }
 
 
-        [Test]
-        public void AuthInteractorConstructorServiceNullArgsTest()
+
+
+        //Testing void OnLogin(string login, string password) method
+        //testing if returns LoginFailType.Error if login argument is null 
+        //testing if returns LoginFailType.Error if password argument is null 
+        [TestCase(null, "42a")]
+        [TestCase("login25",null)]
+        public void AuthInteractorOnLoginNullLoginTest(string login, string password)
         {
             var presenter = new Mock<IAuthPresenter>(MockBehavior.Strict);
-            Assert.Throws<ArgumentNullException>(() => new AuthInteractor(null,presenter.Object));
+            presenter.Setup(t => t.LoginFail(LoginFailType.Error));
+            IAuthInteractor interactor = new AuthInteractor(new Mock<IUserDataService>().Object, presenter.Object);
+            interactor.OnLogin(login, password);
+            presenter.Verify(t => t.LoginFail(LoginFailType.Error));
+
         }
 
-
-        //on login add args validation: not null, 
-        
-    
-            //sessionId is 14 nums length
-
-
        
+
 
         [Test]
         public void AuthInteractorOnLoginEventHandlingTest()
@@ -72,7 +87,7 @@ namespace ChatAppTddTest
             presenter.Verify(t => t.LoginFail(LoginFailType.Error), Times.Once);
         }
 
-        //
+        
 
         [Test]
         public void AuthInteractorOnSingUpEventHandlingTest()

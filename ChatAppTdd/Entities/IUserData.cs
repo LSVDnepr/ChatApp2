@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ChatAppTdd.Entities
 {
-    public interface IUserDataService
+    public interface IUserData
     {
 
        string UserID { get; set; }

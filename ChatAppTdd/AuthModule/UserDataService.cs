@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ChatAppTdd.Entities;
 
 using ChatAppTdd.Repository;
 
@@ -24,7 +25,7 @@ namespace ChatAppTdd.AuthModule
             throw new NotImplementedException();
         }
 
-        public IUserDataService GetUserData(string sessionId)
+        public IUserData GetUserData(string sessionId)
         {
             throw new NotImplementedException();
         }

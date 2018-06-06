@@ -11,7 +11,7 @@ namespace ChatAppTdd.Repository
         string AuthorizeUser(string login, string password); //
         string RegisterUser(string login, string password, string title); //
         string GetUserIdBySessionId(string sessionId);//
-        IUserDataService GetUserData(string sessionId);
+        IUserData GetUserData(string sessionId);
 
 
 
