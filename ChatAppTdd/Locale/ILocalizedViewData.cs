@@ -10,6 +10,5 @@ namespace ChatAppTdd.AuthModule
         string PasswordText { get; }
         string LogInBtnText { get; }
         string SignUpBtnText { get; }
-
     }
 }
