@@ -69,7 +69,7 @@ namespace ChatAppTddTest
 
 
 
-
+        //testing if interactor returns correct result if unexpected exception occurs
         [Test]
         public void AuthInteractorOnLoginEventHandlingUnknownErrorTest()
         {
@@ -85,7 +85,7 @@ namespace ChatAppTddTest
         }
 
 
-       
+       //wrong login test
         [Test]
         public void AuthInteractorOnLoginEventHandlingWrongLoginTest()
         {
@@ -100,11 +100,9 @@ namespace ChatAppTddTest
             presenter.Verify(t => t.LoginFail(LoginFailType.WrongLogin), Times.Once);
         }
 
-        
 
 
-
-
+        //testing that sign up works fine with correct args
         [Test]
         public void AuthInteractorOnSingUpEventHandlingTest()
         {
@@ -126,10 +124,11 @@ namespace ChatAppTddTest
             presenter.Verify(t => t.SignUpSuccess(testSessionId, testUserId), Times.Once);
         }
 
+
+        //testing that sign up fails with proper error type if login already exists
         [Test]
         public void AuthInteractorOnSingUpLoginExistsTest()
         {
-
             var service = new Mock<IUserDataService>(MockBehavior.Strict);
             var presenter = new Mock<IAuthPresenter>(MockBehavior.Strict);
             service.Setup(t => t.CheckLoginExists("Login12")).Returns(true);
@@ -139,8 +138,8 @@ namespace ChatAppTddTest
             presenter.Verify(t => t.SignUpFail(SignUpFailType.LoginExists), Times.Once);
         }
 
-      
 
+        //testing that sign up fails with proper error type if unexpected exception occurs in checkLoginExists
         [Test]
         public void AuthInteractorOnSingUpErrorTest()
         {
@@ -152,8 +151,32 @@ namespace ChatAppTddTest
             presenter.Verify(t => t.SignUpFail(SignUpFailType.Error), Times.Once);
         }
 
+        //testing that sign up fails with proper error type if unexpected exception occurs in RegisterUser
         [Test]
         public void AuthInteractorOnSingUpError2Test()
+        {
+            string testSessionId = "10293847561213";
+            string testLogin = "login_42";
+            string testPassword = "pass42";
+            string testTitle = "title2tst";
+            string testUserId = "4825557";
+            var service = new Mock<IUserDataService>(MockBehavior.Strict);
+            var presenter = new Mock<IAuthPresenter>(MockBehavior.Strict);
+            service.Setup(t => t.RegisterUser(testLogin, testPassword, testTitle)).Throws(new Exception("Unknown Error"));
+            service.Setup(t => t.CheckLoginExists(testLogin)).Returns(false);
+            service.Setup(t => t.GetUserIdBySessionId(testSessionId)).Returns(testUserId);
+            presenter.Setup(t => t.SignUpSuccess(testSessionId, testUserId));
+            presenter.Raise(t => t.OnSignUpAttempt += null, testLogin, testPassword, testTitle);
+          // service.Verify(t => t.RegisterUser(testLogin, testPassword, testTitle), Times.Once);
+         // service.Verify(t => t.CheckLoginExists(testLogin), Times.Once);
+         // service.Verify(t => t.GetUserIdBySessionId(testSessionId), Times.Once);
+            presenter.Verify(t => t.SignUpFail(SignUpFailType.Error), Times.Once);
+        }
+
+
+        //testing that sign up fails with proper error type if unexpected exception occurs in AuthorizeUser
+        [Test]
+        public void AuthInteractorOnSingUpError3Test()
         {
             var service = new Mock<IUserDataService>(MockBehavior.Strict);
             var presenter = new Mock<IAuthPresenter>(MockBehavior.Strict);
@@ -164,6 +187,8 @@ namespace ChatAppTddTest
             presenter.Verify(t => t.SignUpFail(SignUpFailType.Error), Times.Once);
             service.Verify(t => t.CheckLoginExists("Login11"), Times.Once);
         }
+
+
 
         //testing if throws argument null if login is null 
         [Test]
