@@ -7,11 +7,12 @@
 using Foundation;
 using System;
 using System.CodeDom.Compiler;
+using UIKit;
 
 namespace ChatAppTdd.iOS
 {
-    [Register ("ViewController")]
-    partial class ViewController
+    [Register ("AuthorizeVC")]
+    partial class AuthorizeVC
     {
         void ReleaseDesignerOutlets ()
         {

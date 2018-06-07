@@ -64,6 +64,19 @@
     <None Include="GettingStarted.Xamarin" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AuthorizeVC.cs" />
+    <Compile Include="AuthorizeVC.designer.cs">
+      <DependentUpon>AuthorizeVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegisterVC.cs" />
+    <Compile Include="RegisterVC.designer.cs">
+      <DependentUpon>RegisterVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChatPageVC.cs" />
+    <Compile Include="ChatPageVC.designer.cs">
+      <DependentUpon>ChatPageVC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AuthModule\AuthRouter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewController.designer.cs">
@@ -81,6 +94,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entitlements.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChatAppTdd\ChatAppTdd.csproj">
+      <Project>{6619D612-914B-4942-82F1-E010B00F65C7}</Project>
+      <Name>ChatAppTdd</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AuthModule\" />
+    <Folder Include="ChatModule\" />
+    <Folder Include="RegistrationModule\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
