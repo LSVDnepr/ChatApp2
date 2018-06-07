@@ -8,14 +8,22 @@ namespace ChatAppTddTest
     [TestFixture]
     public class ValidatorTests
     {
+      //  [SetUp]
+      //  public void initValidator()
+      //  {
+       private static IValidationWorker _validator = new ValidationWorker();
+     //   }
+
         //=============================================================================================
         //LOGIN VALIDATION TESTS
         [Test]
         public void ValidateLoginNullArgTest()
         {
-            Assert.Throws<ArgumentNullException>(() => ValidationUtils.ValidateLogin(null));
+            Assert.Throws<ArgumentNullException>(() => _validator.ValidateLogin(null));
 
         }
+
+      
 
         /*
         min length = 6, 
@@ -33,7 +41,7 @@ namespace ChatAppTddTest
         [TestCase("my login", ExpectedResult = false)] //contains forbidden chars
         public bool ValidateNotCorrectLoginTest(string login)
         {
-            return ValidationUtils.ValidateLogin(login);
+            return _validator.ValidateLogin(login);
 
         }
 
@@ -44,7 +52,7 @@ namespace ChatAppTddTest
         [TestCase("12374_-7541", ExpectedResult = true)]
         public bool ValidateCorrectLoginTest(string login)
         {
-            return ValidationUtils.ValidateLogin(login);
+            return _validator.ValidateLogin(login);
 
         }
 
@@ -55,7 +63,7 @@ namespace ChatAppTddTest
         [Test]
         public void ValidatePasswordNullArgTest()
         {
-            Assert.Throws<ArgumentNullException>(() => ValidationUtils.ValidatePassword(null));
+            Assert.Throws<ArgumentNullException>(() => _validator.ValidatePassword(null));
 
         }
 
@@ -70,7 +78,7 @@ namespace ChatAppTddTest
         [TestCase("thisIsReallyLongPasswordForTestingIfInteractorValidatesPasswordMaximumLengthAccordingToProvidedBusinessRequirementsAndReturnsCorrectErrorInResponse", ExpectedResult = false)]//longer than max length
         public bool ValidateNotCorrectPasswordTest(string password)
         {
-            return ValidationUtils.ValidatePassword(password);
+            return _validator.ValidatePassword(password);
 
         }
 
@@ -85,7 +93,7 @@ namespace ChatAppTddTest
         [TestCase("a#$%&^*!7", ExpectedResult = true)]
         public bool ValidateCorrectPasswordTest(string password)
         {
-            return ValidationUtils.ValidatePassword(password);
+            return _validator.ValidatePassword(password);
 
         }
 
@@ -98,7 +106,7 @@ namespace ChatAppTddTest
         [Test]
         public void ValidateSessionIdNullArgTest()
         {
-            Assert.Throws<ArgumentNullException>(() => ValidationUtils.ValidateSessionId(null));
+            Assert.Throws<ArgumentNullException>(() => _validator.ValidateSessionId(null));
         }
 
 
@@ -112,7 +120,7 @@ namespace ChatAppTddTest
         [TestCase("иднарусском123", ExpectedResult = false)]//forbidden chars
         public bool ValidateNotCorrectSessionIdTest(string sessionId)
         {
-            return ValidationUtils.ValidateSessionId(sessionId);
+            return _validator.ValidateSessionId(sessionId);
 
         }
 
@@ -123,7 +131,7 @@ namespace ChatAppTddTest
         [TestCase("12345678901234", ExpectedResult = true)]
         public bool ValidateCorrectSessionIdTest(string sessionId)
         {
-            return ValidationUtils.ValidateSessionId(sessionId);
+            return _validator.ValidateSessionId(sessionId);
 
         }
 
@@ -133,7 +141,7 @@ namespace ChatAppTddTest
         [Test]
         public void ValidateTitleNullArgTest()
         {
-            Assert.Throws<ArgumentNullException>(() => ValidationUtils.ValidateTitle(null));
+            Assert.Throws<ArgumentNullException>(() => _validator.ValidateTitle(null));
         }
 
 
@@ -152,7 +160,7 @@ namespace ChatAppTddTest
         [TestCase("123456789", ExpectedResult = false)]  //Special symbol is the first and the last char (number)
         public bool ValidateNotCorrectTitleTest(string title)
         {
-            return ValidationUtils.ValidateTitle(title);
+            return _validator.ValidateTitle(title);
 
         }
 
@@ -169,7 +177,7 @@ namespace ChatAppTddTest
         [TestCase("имя`На-Русском'Is–Valid", ExpectedResult = true)]
         public bool ValidateCorrectTitleTest(string title)
         {
-            return ValidationUtils.ValidateLogin(title);
+            return _validator.ValidateTitle(title);
 
         }
 
@@ -185,28 +193,28 @@ namespace ChatAppTddTest
         [Test]
         public void ValidateUserIdNullArgTest()
         {
-            Assert.Throws<ArgumentNullException>(() => ValidationUtils.ValidateUserId(null));
+            Assert.Throws<ArgumentNullException>(() => _validator.ValidateUserId(null));
         }
 
         [TestCase("", ExpectedResult = false)] //less than min length
         [TestCase("abcd", ExpectedResult = false)] //less than min length
         [TestCase("abcd1234545", ExpectedResult = false)] //longer than max length
-        [TestCase("1234567890", ExpectedResult = false)] //longer than max length
+        [TestCase("12345678907", ExpectedResult = false)] //longer than max length
         [TestCase("qwertyid", ExpectedResult = false)] //contains forbidden chars
         [TestCase("1234abcd", ExpectedResult = false)] //contains forbidden chars
         public bool ValidateNotCorrectUserIdTest(string userId)
         {
-            return ValidationUtils.ValidateTitle(userId);
+            return _validator.ValidateUserId(userId);
 
         }
 
 
-        [TestCase("123456", ExpectedResult = true)]
-        [TestCase("0127177", ExpectedResult = true)]
-        [TestCase("01272339", ExpectedResult = true)]
+        [TestCase("12345699", ExpectedResult = true)]
+        [TestCase("012717755", ExpectedResult = true)]
+        [TestCase("0127233912", ExpectedResult = true)]
         public bool ValidateCorrectUserIdTest(string userId)
         {
-            return ValidationUtils.ValidateTitle(userId);
+            return _validator.ValidateUserId(userId);
 
         }
 

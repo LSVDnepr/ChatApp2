@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="hello">Hello World, Click Me!</string>
-  <string name="app_name">ChatAppTdd.Droid</string>
+  <string name="app_name">My Application</string>
+  <string name="auth_btn_text_default">Auth Btn Text Not Set</string>
+  <string name="login_btn_text_default">Login Btn Text Not Set</string>
+  <string name="login_lbl_text_default">Login Label Text Not Set</string>
+  <string name="password_lbl_text_default">Password Label Text Not Set</string>
 </resources>

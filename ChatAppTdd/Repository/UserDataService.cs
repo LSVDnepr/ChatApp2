@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ChatAppTdd.AuthModule;
 using ChatAppTdd.Entities;
-
-using ChatAppTdd.Repository;
+using ChatAppTdd.Locale;
 
 namespace ChatAppTdd.Repository
 {
     public class UserDataService : IUserDataService
     {
-
         public UserDataService()
         {
 
         }
 
-        public string AuthorizeUser(string login, string password)
+        public string AuthorizeUser(string login, string password, out LoginFailType failType)
         {
             throw new NotImplementedException();
         }
@@ -35,7 +34,7 @@ namespace ChatAppTdd.Repository
             throw new NotImplementedException();
         }
 
-        public string RegisterUser(string login, string password, string title)
+        public string RegisterUser(string login, string password, string title, out SignUpFailType failType)
         {
             throw new NotImplementedException();
         }

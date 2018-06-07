@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ChatAppTdd.AuthModule;
 
-namespace ChatAppTdd.Locale2
+namespace ChatAppTdd.Locale
 {
     public class LocaleDataRu : ILocaleData
     {
@@ -16,8 +16,8 @@ namespace ChatAppTdd.Locale2
         public string SignUpBtnText => "Зарегистрироваться";
 
 
-        private static Dictionary<SignUpFailType, string> _SingUpErrors = new Dictionary<SignUpFailType, string>();
-        private static Dictionary<LoginFailType, string> _LoginErrors = new Dictionary<LoginFailType, string>();
+        private Dictionary<SignUpFailType, string> _SingUpErrors = new Dictionary<SignUpFailType, string>();
+        private Dictionary<LoginFailType, string> _LoginErrors = new Dictionary<LoginFailType, string>();
 
         public LocaleDataRu()
         {

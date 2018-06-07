@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ChatAppTdd.Droid.AuthModule.AuthorizationView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#37474F">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="15dp">
+        <TextView
+            android:id="@+id/loginLabelTxt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:gravity="fill_vertical"
+            android:text="@string/login_lbl_text_default"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp" />
+        <EditText
+            android:id="@+id/loginField"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/passwordLabelTxt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"           
+            android:gravity="center_vertical"
+            android:text="@string/password_lbl_text_default"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp" />
+        <EditText
+            android:id="@+id/passwordField"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:inputType="textPassword"
+            android:text=""
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp" />
+        <Button
+            android:id="@+id/authBtn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:text="@string/login_btn_text_default"
+            android:textColor="@color/colorBlack" />
+        <Button
+            android:id="@+id/registerBtn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:textColor="@color/colorBlack"
+            android:text="@string/auth_btn_text_default" />
+        <Switch
+            android:id="@+id/langSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="En/Ru"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+    </LinearLayout>
+</ChatAppTdd.Droid.AuthModule.AuthorizationView>

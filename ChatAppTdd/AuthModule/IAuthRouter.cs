@@ -6,8 +6,7 @@ namespace ChatAppTdd.AuthModule
 {
     public interface IAuthRouter
     {
-        void MoveToChat(string sessionId,string userId);
-        //void MoveToRegistration();
-
+        void MoveToChat(string sessionId, string userId);
+        void MoveToRegistration();
     }
 }

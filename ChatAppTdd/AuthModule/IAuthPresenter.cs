@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ChatAppTdd.Locale;
 
 namespace ChatAppTdd.AuthModule
 {
     public interface IAuthPresenter
     {
-        event Action<string,string> OnLogInAttempt;
-        event Action<string, string,string>  OnSignUpAttempt;
+        event Action<string, string> OnLogInAttempt;
+        event Action OnSignUpAttempt;
 
-        void LoginSuccess(string sessionID, string clientId);
+        void LoginSuccess(string sessionID, string userId);
         void LoginFail(LoginFailType failReason);
-        void SignUpSuccess(string sessionID, string clientId);
-        void SignUpFail(SignUpFailType failReason);
+        void SignUpAllowed();
+        void SignUpForbidden(SignUpFailType failReason);    
 
     }
 }

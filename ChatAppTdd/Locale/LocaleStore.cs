@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ChatAppTdd.AuthModule;
 
-namespace ChatAppTdd.Locale2
+namespace ChatAppTdd.Locale
 {
     public class LocaleStore : ILocaleStore
     {

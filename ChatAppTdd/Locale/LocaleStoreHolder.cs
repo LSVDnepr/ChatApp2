@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChatAppTdd.Locale2
+namespace ChatAppTdd.Locale
 {
     public static class LocaleStoreHolder
     {
