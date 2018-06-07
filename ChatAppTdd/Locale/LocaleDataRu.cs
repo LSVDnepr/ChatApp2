@@ -23,14 +23,14 @@ namespace ChatAppTdd.Locale
         {
             //SingUpErrors
             _SingUpErrors.Add(SignUpFailType.LoginExists, "Указанный логин уже существует");
-            _SingUpErrors.Add(SignUpFailType.LoginWrongFormat,"");
-            _SingUpErrors.Add(SignUpFailType.PasswordWrongFormat,"");
-            _SingUpErrors.Add(SignUpFailType.TitleWrongFormat,"");
+            _SingUpErrors.Add(SignUpFailType.LoginWrongFormat,"Такой логин не допустим");
+            _SingUpErrors.Add(SignUpFailType.PasswordWrongFormat,"Такой пароль недопустим");
+            _SingUpErrors.Add(SignUpFailType.TitleWrongFormat,"Имя (title) не подходит по формату");
             _SingUpErrors.Add(SignUpFailType.Error,"Ошибка. Повторите позже");
             //LoginErrors
             _LoginErrors.Add(LoginFailType.WrongLogin, "Указанный логин не существует");
-            _LoginErrors.Add(LoginFailType.WrongPassword,"");
-            _LoginErrors.Add(LoginFailType.NetworkError,"");
+            _LoginErrors.Add(LoginFailType.WrongPassword,"Некорректный пароль");
+            _LoginErrors.Add(LoginFailType.NetworkError,"Ошибка связи повторите позже");
             _LoginErrors.Add(LoginFailType.Error,"Ошибка. Повторите позже");
         }
 

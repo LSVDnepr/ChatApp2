@@ -69,6 +69,22 @@ is assigned on viewEvent OnLocaleChanged();
  3.7. void SignUpSuccess(string sessionID, string clientId);
 
  3.8. void SignUpFail(SignUpFailType failReason);         */
+        private void VievLocaleSetup(Mock<IAuthView> view)
+        {
+            view.SetupSet(t => t.LoginButtonTxt = It.IsAny<string>());
+            view.SetupSet(t => t.LoginLabelTxt = It.IsAny<string>());
+            view.SetupSet(t => t.PasswordLabelTxt = It.IsAny<string>());
+            view.SetupSet(t => t.SignUpBtnTxt = It.IsAny<string>());
+        }
+        private void VievLocaleVerify(Mock<IAuthView> view)
+        {
+            view.VerifySet(t => t.LoginButtonTxt = It.IsAny<string>(), Times.Once);
+            view.VerifySet(t => t.LoginLabelTxt = It.IsAny<string>(), Times.Once);
+            view.VerifySet(t => t.PasswordLabelTxt = It.IsAny<string>(), Times.Once);
+            view.VerifySet(t => t.SignUpBtnTxt = It.IsAny<string>(), Times.Once);
+        }
+
+
         //presenter contructor view arg is null
         [Test]
         public void AuthPresenterConstructorViewNullArgsTest()
@@ -86,336 +102,335 @@ is assigned on viewEvent OnLocaleChanged();
             var mockRouter = new Mock<IAuthRouter>(MockBehavior.Strict);
             Assert.Throws<ArgumentNullException>(() => new AuthPresenter(null, mockRouter.Object));
         }
-
         [Test]//!!
         public void AuthPresenterConstructorPositiveTest()
         {
             var mockRouter = new Mock<IAuthRouter>(MockBehavior.Strict);
             var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t=>t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            IAuthPresenter prsenter = new AuthPresenter(mockView.Object, mockRouter.Object);
-            mockView.Verify(t=>t.SetLocalizedData(It.IsAny<ILocalizedViewData>()),Times.Once);
-        }
+            VievLocaleSetup(mockView);
 
+             IAuthPresenter prsenter = new AuthPresenter(mockView.Object, mockRouter.Object);
+            VievLocaleVerify(mockView);
+        }
         [Test]//!!
         public void AuthPresenterOnLoginLoginNullTest()
         {
             var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+            VievLocaleSetup(mockView);
             mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
+
             AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            mockView.Raise(t => t.OnLoginBtnPressed += null, null, "Password");
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
-        }
-        [Test]//!!
-        public void AuthPresenterOnLoginLoginEmptyTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            mockView.Raise(t => t.OnLoginBtnPressed += null, "", "Password");
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
+            Assert.Throws<ArgumentNullException>(()=>mockView.Raise(t => t.OnLoginBtnPressed += null, null, "Password"));
+            VievLocaleVerify(mockView);
         }
 
         [Test]//!!
-        public void AuthPresenterOnLoginPasswordNullTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                public void AuthPresenterOnLoginLoginEmptyTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+            VievLocaleSetup(mockView);
             mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            mockView.Raise(t => t.OnLoginBtnPressed += null, "Login", null);
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
+                    mockView.Raise(t => t.OnLoginBtnPressed += null, "", "Password");
+            VievLocaleVerify(mockView);
             mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
+                }
+
+               [Test]//!!
+                public void AuthPresenterOnLoginPasswordNullTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+            VievLocaleSetup(mockView);
+            mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
+            Assert.Throws<ArgumentNullException>(() => mockView.Raise(t => t.OnLoginBtnPressed += null, "Login", null));
+            VievLocaleVerify(mockView);
         }
 
         [Test]//!!
-        public void AuthPresenterOnLoginPasswordEmptyTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                public void AuthPresenterOnLoginPasswordEmptyTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+            VievLocaleSetup(mockView);
             mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            mockView.Raise(t => t.OnLoginBtnPressed += null, "Login", "");
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
+                    mockView.Raise(t => t.OnLoginBtnPressed += null, "Login", "");
+            VievLocaleVerify(mockView);
             mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
-        }
+                }
 
-        //on view event on login btn pressed invokes OnLoginAttempt
-        [Test]//!!
-        public void AuthPresenterOnLoginEventHandlingTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                //on view event on login btn pressed invokes OnLoginAttempt
+                [Test]//!!
+                public void AuthPresenterOnLoginEventHandlingTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+            VievLocaleSetup(mockView);
             AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            //presenter.OnLogInAttempt += (l, p) => onLoginCalled++; 
-            presenter.OnLogInAttempt += (l, p) => Assert.Pass();
-            mockView.Raise(t => t.OnLoginBtnPressed += null, "Login", "Password");
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    //presenter.OnLogInAttempt += (l, p) => onLoginCalled++; 
+                    presenter.OnLogInAttempt += (l, p) => Assert.Pass();
+                    mockView.Raise(t => t.OnLoginBtnPressed += null, "Login", "Password");
+            VievLocaleVerify(mockView);
             //Assert.That(onLoginCalled,Is.EqualTo(1));
             Assert.Fail("Don't invoke");
-        }
+                }
+        /*
+                [Test]//!!
+                public void AuthPresenterOnLocaleChangedEnEventHandlingTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(new EnLocalizedViewData()));
+                    mockView.Setup(t => t.GetCurrentLocale()).Returns("EN");
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
+                    mockView.Raise(t => t.OnLocaleChanged += null);
+                    mockView.Verify(t => t.SetLocalizedData(new EnLocalizedViewData()), Times.Exactly(2));
+                    mockView.Verify(t => t.GetCurrentLocale(),Times.Once);
+                }
 
 
-        [Test]//!!
-        public void AuthPresenterOnSignUpLoginNullTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            mockView.Raise(t => t.OnSignUpBtnPressed += null, null, "Password","Title");
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()),Times.Once);
-        }
-        [Test]//!!
-        public void AuthPresenterOnSignUpLoginEmptyTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            mockView.Raise(t => t.OnSignUpBtnPressed += null, "", "Password","Title");
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
-        }
+                //on view event localechanged calls set Localized Data with russian localized data
+                [Test]//!!
+                public void AuthPresenterOnLocaleChangedRusEventHandlingTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(new EnLocalizedViewData()));
+                    mockView.Setup(t => t.SetLocalizedData(new RuLocalizedViewData()));
+                    mockView.Setup(t => t.GetCurrentLocale()).Returns("RU");
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
+                    mockView.Raise(t => t.OnLocaleChanged += null);
+                    mockView.Verify(t => t.SetLocalizedData(new EnLocalizedViewData()), Times.Once);
+                    mockView.Verify(t => t.SetLocalizedData(new RuLocalizedViewData()), Times.Once);
+                    mockView.Verify(t => t.GetCurrentLocale(), Times.Once);
+                }
 
-        [Test]//!!
-        public void AuthPresenterOnSignUpPasswordNullTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            mockView.Raise(t => t.OnSignUpBtnPressed += null, "Login", null,"Title");
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
-        }
-
-        [Test]//!!
-        public void AuthPresenterOnSignUpPasswordEmptyTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            mockView.Raise(t => t.OnSignUpBtnPressed += null, "Login", "", "Title");
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
-        }
-
-        [Test]//!!
-        public void AuthPresenterOnSignUpTitleNullTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            mockView.Raise(t => t.OnSignUpBtnPressed += null, "Login", "Password",null);
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
-        }
-
-        [Test]//!!
-        public void AuthPresenterOnSignUpTitleEmptyTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            mockView.Raise(t => t.OnSignUpBtnPressed += null, "Login", "Password", "");
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
-        }
-
-        //on view event on login btn pressed invokes OnLoginAttempt
-        [Test]//!!
-        public void AuthPresenterOnSignUpEventHandlingTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            presenter.OnSignUpAttempt += (l, p, t) => onSingUpCalled++;
-            mockView.Raise(t => t.OnSignUpBtnPressed += null, "Login", "Password");
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            Assert.That(onSingUpCalled,Is.EqualTo(1));
-        }
-
-        [Test]//!!
-        public void AuthPresenterOnLocaleChangedEnEventHandlingTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(new EnLocalizedViewData()));
-            mockView.Setup(t => t.GetCurrentLocale()).Returns("EN");
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            mockView.Raise(t => t.OnLocaleChanged += null);
-            mockView.Verify(t => t.SetLocalizedData(new EnLocalizedViewData()), Times.Exactly(2));
-            mockView.Verify(t => t.GetCurrentLocale(),Times.Once);
-        }
-
-
-        //on view event localechanged calls set Localized Data with russian localized data
-        [Test]//!!
-        public void AuthPresenterOnLocaleChangedRusEventHandlingTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(new EnLocalizedViewData()));
-            mockView.Setup(t => t.SetLocalizedData(new RuLocalizedViewData()));
-            mockView.Setup(t => t.GetCurrentLocale()).Returns("RU");
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            mockView.Raise(t => t.OnLocaleChanged += null);
-            mockView.Verify(t => t.SetLocalizedData(new EnLocalizedViewData()), Times.Once);
-            mockView.Verify(t => t.SetLocalizedData(new RuLocalizedViewData()), Times.Once);
-            mockView.Verify(t => t.GetCurrentLocale(), Times.Once);
-        }
-
-        [TestCase(null)]//!!
-        [TestCase("")]//!!
-        [TestCase("__")]//!!
-        public void AuthPresenterOnBadCurrentLocaleTest(string locale)
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                [TestCase(null)]//!!
+                [TestCase("")]//!!
+                [TestCase("__")]//!!
+                public void AuthPresenterOnBadCurrentLocaleTest(string locale)
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+            VievLocaleSetup(mockView);
             mockView.Setup(t => t.GetCurrentLocale()).Returns(locale);
+                    mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
+                    mockView.Raise(t => t.OnLocaleChanged += null);
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
+                }
+
+
+                //testing whether on login failed ShowErrorMessage(string message) is called with proper args
+                [TestCase(LocalesSupported.En, LoginFailType.Error, "Error. Try again later")]
+                [TestCase(LocalesSupported.Ru, LoginFailType.Error, "Ошибка. Повторите позже")]
+                [TestCase(LocalesSupported.En, LoginFailType.WrongLogin, "Login does not exist")]
+                [TestCase(LocalesSupported.Ru, LoginFailType.WrongLogin, "Указанный логин не существует")]
+                public void AuthPresenterOnLOginFailShowErrorTest(LocalesSupported locale, LoginFailType failType, string message)
+                {
+
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+            VievLocaleSetup(mockView);
+            mockView.Setup((m => m.ShowErrorMessage(message)));
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object, locale);
+                    presenter.LoginFail(failType);
+                    mockView.Verify(m => m.ShowErrorMessage(message), Times.Once);
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                }
+
+
+                //testing whether on sign up failed ShowErrorMessage(string message) is called with proper args
+                [TestCase(LocalesSupported.En, SignUpFailType.LoginExists, "Login already exists")]
+                [TestCase(LocalesSupported.Ru, SignUpFailType.LoginExists, "Указанный логин уже существует")]
+                [TestCase(LocalesSupported.En, SignUpFailType.Error, "Error. Try again later")]
+                [TestCase(LocalesSupported.Ru, SignUpFailType.Error, "Ошибка. Повторите позже")]
+                public void AuthPresenterOnSignUpFailShowErrorTest(LocalesSupported locale, SignUpFailType failType, string message)
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                    mockView.Setup((m => m.ShowErrorMessage(message)));
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object, locale);
+                    presenter.SignUpFail(failType);
+                    mockView.Verify(m => m.ShowErrorMessage(message), Times.Once);
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                }
+
+                //testing null args validation in LoginSuccess(string sessionID, string clientId) method
+                [TestCase(null,"1")]
+                [TestCase("10293847561213", null)]
+                public void AuthPresenterLoginSuccessNullArgsValidationTest(string sessionID, string clientId)
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                    IAuthPresenter presenter = new AuthPresenter(new Mock<IAuthView>().Object, new Mock<IAuthRouter>().Object);
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    Assert.Throws<ArgumentNullException>(() => presenter.LoginSuccess(sessionID, clientId));
+                }
+
+
+                //testing args validation in LoginSuccess(string sessionID, string clientId) method
+                //session id must contain 14 chars, onlt numerals allowed
+                //client id must contain nums only
+                [TestCase("22541", "1")]
+                [TestCase("", "")]
+                [TestCase("", "12")]
+                [TestCase("", "12")]
+                [TestCase("qwerty12345678", "12")]
+                [TestCase("01234678974753", "a")]
+                public void AuthPresenterLoginSuccessArgsValidationTest(string sessionID, string clientId)
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                    IAuthPresenter presenter = new AuthPresenter(new Mock<IAuthView>().Object, new Mock<IAuthRouter>().Object);
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    Assert.Throws<ArgumentOutOfRangeException>(() => presenter.LoginSuccess(sessionID, clientId));
+                }
+
+
+                //testing whether LoginSuccess(string sessionID, string clientId) method calls router method
+                [Test]
+                public void AuthPresenterLoginSuccessRouterCallTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                    var mockRouter = new Mock<IAuthRouter>(MockBehavior.Strict);
+                    string testSessionId = "01234678974753";
+                    string testClientId="15";
+                    mockRouter.Setup(m => m.MoveToChat(testSessionId, testClientId));
+                    IAuthPresenter presenter = new AuthPresenter(new Mock<IAuthView>().Object, mockRouter.Object);
+                    presenter.LoginSuccess(testSessionId, testClientId);
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    mockRouter.Verify(m => m.MoveToChat(testSessionId, testClientId), Times.Once);
+                }*/
+        /*
+                //testing null args validation in SignUp Success(string sessionID, string clientId) method
+                [TestCase(null, "1")]
+                [TestCase("10293847561213", null)]
+                public void AuthPresenterSignUpSuccessNullArgsValidationTest(string sessionID, string clientId)
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                    IAuthPresenter presenter = new AuthPresenter(new Mock<IAuthView>().Object, new Mock<IAuthRouter>().Object);
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    Assert.Throws<ArgumentNullException>(() => presenter.SignUpSuccess(sessionID, clientId));
+                }
+
+
+                //testing args validation in SignUpSuccess(string sessionID, string clientId) method
+                //session id must contain 14 chars, onlt numerals allowed
+                //client id must contain nums only
+                [TestCase("22541", "1")]
+                [TestCase("", "")]
+                [TestCase("", "12")]
+                [TestCase("", "12")]
+                [TestCase("qwerty12345678", "12")]
+                [TestCase("01234678974753", "a")]
+                public void AuthPresenterSignUpSuccessArgsValidationTest(string sessionID, string clientId)
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                    IAuthPresenter presenter = new AuthPresenter(new Mock<IAuthView>().Object, new Mock<IAuthRouter>().Object);
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    Assert.Throws<ArgumentOutOfRangeException>(() => presenter.SignUpSuccess(sessionID, clientId));
+                }
+
+
+                //testing whether LoginSuccess(string sessionID, string clientId) method calls router method
+                [Test]
+                public void AuthPresenterSignUpSuccessRouterCallTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                    var mockRouter = new Mock<IAuthRouter>(MockBehavior.Strict);
+                    string testSessionId = "01234678974753";
+                    string testClientId = "15";
+                    mockRouter.Setup(m => m.MoveToChat(testSessionId, testClientId));
+                    IAuthPresenter presenter = new AuthPresenter(new Mock<IAuthView>().Object, mockRouter.Object);
+                    presenter.SignUpSuccess(testSessionId, testClientId);
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    mockRouter.Verify(m => m.MoveToChat(testSessionId, testClientId), Times.Once);
+                }*/
+        /*
+                [Test]//!!
+                public void AuthPresenterOnSignUpLoginNullTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+            VievLocaleSetup(mockView);
             mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
-            mockView.Raise(t => t.OnLocaleChanged += null);
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
+                    mockView.Raise(t => t.OnSignUpBtnPressed += null, null, "Password","Title");
+            VievLocaleVerify(mockView);
+            mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()),Times.Once);
+                }
+                [Test]//!!
+                public void AuthPresenterOnSignUpLoginEmptyTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+            VievLocaleSetup(mockView);
+            mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
+                    mockView.Raise(t => t.OnSignUpBtnPressed += null, "", "Password","Title");
+            VievLocaleVerify(mockView);
             mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
-        }
+                }
+        /*
+                [Test]//!!
+                public void AuthPresenterOnSignUpPasswordNullTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                    mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
+                    mockView.Raise(t => t.OnSignUpBtnPressed += null, "Login", null,"Title");
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
+                }
 
+                [Test]//!!
+                public void AuthPresenterOnSignUpPasswordEmptyTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                    mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
+                    mockView.Raise(t => t.OnSignUpBtnPressed += null, "Login", "", "Title");
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
+                }
 
-        //testing whether on login failed ShowErrorMessage(string message) is called with proper args
-        [TestCase(LocalesSupported.En, LoginFailType.Error, "Error. Try again later")]
-        [TestCase(LocalesSupported.Ru, LoginFailType.Error, "Ошибка. Повторите позже")]
-        [TestCase(LocalesSupported.En, LoginFailType.WrongLogin, "Login does not exist")]
-        [TestCase(LocalesSupported.Ru, LoginFailType.WrongLogin, "Указанный логин не существует")]
-        public void AuthPresenterOnLOginFailShowErrorTest(LocalesSupported locale, LoginFailType failType, string message)
-        {
+                [Test]//!!
+                public void AuthPresenterOnSignUpTitleNullTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                    mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
+                    mockView.Raise(t => t.OnSignUpBtnPressed += null, "Login", "Password",null);
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
+                }
 
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            mockView.Setup((m => m.ShowErrorMessage(message)));
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object, locale);
-            presenter.LoginFail(failType);
-            mockView.Verify(m => m.ShowErrorMessage(message), Times.Once);
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-        }
+                [Test]//!!
+                public void AuthPresenterOnSignUpTitleEmptyTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                    mockView.Setup(t => t.ShowErrorMessage(It.IsAny<string>()));
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
+                    mockView.Raise(t => t.OnSignUpBtnPressed += null, "Login", "Password", "");
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    mockView.Verify(t => t.ShowErrorMessage(It.IsAny<string>()), Times.Once);
+                }
 
-
-        //testing whether on sign up failed ShowErrorMessage(string message) is called with proper args
-        [TestCase(LocalesSupported.En, SignUpFailType.LoginExists, "Login already exists")]
-        [TestCase(LocalesSupported.Ru, SignUpFailType.LoginExists, "Указанный логин уже существует")]
-        [TestCase(LocalesSupported.En, SignUpFailType.Error, "Error. Try again later")]
-        [TestCase(LocalesSupported.Ru, SignUpFailType.Error, "Ошибка. Повторите позже")]
-        public void AuthPresenterOnSignUpFailShowErrorTest(LocalesSupported locale, SignUpFailType failType, string message)
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            mockView.Setup((m => m.ShowErrorMessage(message)));
-            AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object, locale);
-            presenter.SignUpFail(failType);
-            mockView.Verify(m => m.ShowErrorMessage(message), Times.Once);
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-        }
-
-        //testing null args validation in LoginSuccess(string sessionID, string clientId) method
-        [TestCase(null,"1")]
-        [TestCase("10293847561213", null)]
-        public void AuthPresenterLoginSuccessNullArgsValidationTest(string sessionID, string clientId)
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            IAuthPresenter presenter = new AuthPresenter(new Mock<IAuthView>().Object, new Mock<IAuthRouter>().Object);
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            Assert.Throws<ArgumentNullException>(() => presenter.LoginSuccess(sessionID, clientId));
-        }
-
-
-        //testing args validation in LoginSuccess(string sessionID, string clientId) method
-        //session id must contain 14 chars, onlt numerals allowed
-        //client id must contain nums only
-        [TestCase("22541", "1")]
-        [TestCase("", "")]
-        [TestCase("", "12")]
-        [TestCase("", "12")]
-        [TestCase("qwerty12345678", "12")]
-        [TestCase("01234678974753", "a")]
-        public void AuthPresenterLoginSuccessArgsValidationTest(string sessionID, string clientId)
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            IAuthPresenter presenter = new AuthPresenter(new Mock<IAuthView>().Object, new Mock<IAuthRouter>().Object);
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            Assert.Throws<ArgumentOutOfRangeException>(() => presenter.LoginSuccess(sessionID, clientId));
-        }
-
-
-        //testing whether LoginSuccess(string sessionID, string clientId) method calls router method
-        [Test]
-        public void AuthPresenterLoginSuccessRouterCallTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            var mockRouter = new Mock<IAuthRouter>(MockBehavior.Strict);
-            string testSessionId = "01234678974753";
-            string testClientId="15";
-            mockRouter.Setup(m => m.MoveToChat(testSessionId, testClientId));
-            IAuthPresenter presenter = new AuthPresenter(new Mock<IAuthView>().Object, mockRouter.Object);
-            presenter.LoginSuccess(testSessionId, testClientId);
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            mockRouter.Verify(m => m.MoveToChat(testSessionId, testClientId), Times.Once);
-        }
-
-        //testing null args validation in SignUp Success(string sessionID, string clientId) method
-        [TestCase(null, "1")]
-        [TestCase("10293847561213", null)]
-        public void AuthPresenterSignUpSuccessNullArgsValidationTest(string sessionID, string clientId)
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            IAuthPresenter presenter = new AuthPresenter(new Mock<IAuthView>().Object, new Mock<IAuthRouter>().Object);
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            Assert.Throws<ArgumentNullException>(() => presenter.SignUpSuccess(sessionID, clientId));
-        }
-
-
-        //testing args validation in SignUpSuccess(string sessionID, string clientId) method
-        //session id must contain 14 chars, onlt numerals allowed
-        //client id must contain nums only
-        [TestCase("22541", "1")]
-        [TestCase("", "")]
-        [TestCase("", "12")]
-        [TestCase("", "12")]
-        [TestCase("qwerty12345678", "12")]
-        [TestCase("01234678974753", "a")]
-        public void AuthPresenterSignUpSuccessArgsValidationTest(string sessionID, string clientId)
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            IAuthPresenter presenter = new AuthPresenter(new Mock<IAuthView>().Object, new Mock<IAuthRouter>().Object);
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            Assert.Throws<ArgumentOutOfRangeException>(() => presenter.SignUpSuccess(sessionID, clientId));
-        }
-
-
-        //testing whether LoginSuccess(string sessionID, string clientId) method calls router method
-        [Test]
-        public void AuthPresenterSignUpSuccessRouterCallTest()
-        {
-            var mockView = new Mock<IAuthView>(MockBehavior.Strict);
-            mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
-            var mockRouter = new Mock<IAuthRouter>(MockBehavior.Strict);
-            string testSessionId = "01234678974753";
-            string testClientId = "15";
-            mockRouter.Setup(m => m.MoveToChat(testSessionId, testClientId));
-            IAuthPresenter presenter = new AuthPresenter(new Mock<IAuthView>().Object, mockRouter.Object);
-            presenter.SignUpSuccess(testSessionId, testClientId);
-            mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
-            mockRouter.Verify(m => m.MoveToChat(testSessionId, testClientId), Times.Once);
-        }
+                //on view event on login btn pressed invokes OnLoginAttempt
+                [Test]//!!
+                public void AuthPresenterOnSignUpEventHandlingTest()
+                {
+                    var mockView = new Mock<IAuthView>(MockBehavior.Strict);
+                    mockView.Setup(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()));
+                    AuthPresenter presenter = new AuthPresenter(mockView.Object, new Mock<IAuthRouter>().Object);
+                    presenter.OnSignUpAttempt += (l, p, t) => onSingUpCalled++;
+                    mockView.Raise(t => t.OnSignUpBtnPressed += null, "Login", "Password");
+                    mockView.Verify(t => t.SetLocalizedData(It.IsAny<ILocalizedViewData>()), Times.Once);
+                    Assert.That(onSingUpCalled,Is.EqualTo(1));
+                }
+                */
     }
 }

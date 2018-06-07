@@ -49,21 +49,31 @@ namespace ChatAppTdd.AuthModule
                 return;
             }
 
-            string sid=_service.AuthorizeUser(login,password, out LoginFailType error);
-            if (error!=LoginFailType.None)
-            {
-                _presenter.LoginFail(error);
-                return;
+            try
+                {
+                    string sid = _service.AuthorizeUser(login, password, out LoginFailType error);
+                //            Console.WriteLine(error);
+                if (error!=LoginFailType.None)
+                {
+                    _presenter.LoginFail(error);
+                    return;
+                }
+                string uid =_service.GetUserIdBySessionId(sid);
+
+                if (uid==null)
+                {
+                    _presenter.LoginFail(LoginFailType.Error);
+                    return;
+                }
+                _presenter.LoginSuccess(sid, uid);
             }
-
-            string uid=_service.GetUserIdBySessionId(sid);
-
-            if (uid==null)
+            catch (Exception ex)
             {
+                Console.Write(ex);
+                    
                 _presenter.LoginFail(LoginFailType.Error);
                 return;
             }
-            _presenter.LoginSuccess(sid, uid);
         }
 
 

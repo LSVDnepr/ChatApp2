@@ -4,6 +4,7 @@ using Moq;
 using ChatAppTdd.Repository;
 using ChatAppTdd.AuthModule;
 using ChatAppTdd.Entities;
+using ChatAppTdd.Locale;
 
 namespace ChatAppTddTest
 {
@@ -14,28 +15,30 @@ namespace ChatAppTddTest
         public void AuthorizeUserLoginNullTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.AuthorizeUser(null, "123456"), Throws.ArgumentNullException);
+            Assert.Throws<ArgumentNullException>(()=>service.AuthorizeUser(null, "123456", out LoginFailType code));
         }
 
         [Test]
         public void AuthorizeUserPasswordNullTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.AuthorizeUser("login", null), Throws.ArgumentNullException);
+            Assert.Throws<ArgumentNullException>(() => service.AuthorizeUser("login", null, out LoginFailType code));
         }
 
         [Test]
         public void AuthorizeUserLoginEmptyTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.AuthorizeUser("", "123456"), Throws.ArgumentException);
+            service.AuthorizeUser("", "123456", out LoginFailType code);
+            Assert.That(code, Is.EqualTo(LoginFailType.Error));
         }
 
         [Test]
         public void AuthorizeUserPasswordEmptyTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.AuthorizeUser("login", ""), Throws.ArgumentException);
+            service.AuthorizeUser("login", "", out LoginFailType code);
+            Assert.That(code, Is.EqualTo(LoginFailType.Error));
         }
 
 
@@ -43,43 +46,30 @@ namespace ChatAppTddTest
         public void AuthorizeUserLoginNotExistTest()
         {
             IUserDataService service = new UserDataService();
-            try
-            {
-                service.AuthorizeUser("non existent login", "123456");
-            } catch (ChatAuthException ex)
-            {
-                Assert.That(ex.LoginFailType,Is.EqualTo(LoginFailType.WrongLogin));
-            }
-         
+            service.AuthorizeUser("non existend login", "password", out LoginFailType code);
+            Assert.That(code,Is.EqualTo(LoginFailType.WrongLogin));
         }
 
         [Test]
         public void AuthorizeUserWrongPasswordTest()
         {
             IUserDataService service = new UserDataService();
-            try
-            {
-                service.AuthorizeUser("login", "Bad password");
-            }
-            catch (ChatAuthException ex)
-            {
-                Assert.That(ex.LoginFailType, Is.EqualTo(LoginFailType.WrongPassword));
-            }
-        
+            service.AuthorizeUser("login", "Bad password", out LoginFailType code);
+            Assert.That(code, Is.EqualTo(LoginFailType.WrongPassword));
         }
 
         [Test]
         public void CheckLoginExistsLoginNullTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.CheckLoginExists(null), Throws.ArgumentNullException);
+            Assert.Throws<ArgumentNullException>(()=>service.CheckLoginExists(null));
         }
 
         [Test]
         public void CheckLoginExistsLoginEmptyTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.CheckLoginExists(""), Throws.ArgumentException);
+            Assert.Throws<ArgumentException>(()=>service.CheckLoginExists(""));
         }
 
         [Test]
@@ -100,21 +90,21 @@ namespace ChatAppTddTest
         public void GetUserDataNullTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.GetUserData(null), Throws.ArgumentNullException);
+            Assert.Throws<ArgumentNullException>(()=>service.GetUserData(null));
         }
 
         [Test]
         public void GetUserDataEmptyTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.GetUserData(""), Throws.ArgumentException);
+            Assert.Throws<ArgumentException>(()=>service.GetUserData(""));
         }
 
         [Test]
         public void GetUserDataPositiveTest()
         {
             IUserDataService service = new UserDataService();
-            IUserData usrData=service.GetUserData(service.AuthorizeUser("login","password"));
+            IUserData usrData=service.GetUserData(service.AuthorizeUser("login","password",out LoginFailType code));
             Assert.That(usrData, Is.Not.Null);
             Assert.That(usrData.SessionID, Is.Not.Null);
             Assert.That(usrData.Title, Is.Not.Null);
@@ -126,37 +116,37 @@ namespace ChatAppTddTest
         public void GetUserDataNegativeTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.GetUserData("BadSession0123"), Throws.ArgumentException);
+            Assert.That(service.GetUserData("BadSession0123"), Is.Null);
         }
 
         [Test]
         public void GetUserIdDataNullTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.GetUserIdBySessionId(null), Throws.ArgumentNullException);
+            Assert.Throws<ArgumentNullException>(()=>service.GetUserIdBySessionId(null));
         }
 
         [Test]
         public void GetUserIdDataEmptyTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.GetUserIdBySessionId(""), Throws.ArgumentException);
+            Assert.Throws<ArgumentException>(()=>service.GetUserIdBySessionId(""));
         }
 
         [Test]
         public void GetUserIdDataPositiveTest()
         {
             IUserDataService service = new UserDataService();
-            string id = service.GetUserIdBySessionId(service.AuthorizeUser("login12", "password12"));
+            string id = service.GetUserIdBySessionId(service.AuthorizeUser("login", "password", out LoginFailType code));
             Assert.That(id, Is.Not.Null);
         }
         [Test]
         public void GetUserIdDataNegativeTest()
         {
             IUserDataService service = new UserDataService();
-            Assert.That(service.GetUserIdBySessionId("BadSession0123"), Throws.ArgumentException);
+            Assert.That(service.GetUserIdBySessionId("BadSession0123"),Is.Null);
         }
-
+        /*
         [Test]
         public void RegisterUserLoginNullTest()
         {
@@ -219,12 +209,12 @@ namespace ChatAppTddTest
             string id = service.RegisterUser(login, pwd,title);
             Assert.That(id, Is.Not.Null);
         }
-
-        /*
-                2.5. public string RegisterUser(string login, string password, string title)
-                2.5.4. if args are not null=> if exists throws exception
-                2.5.5. if args are not null=> if doesn't exist Generates and returns SessionId (check it's valid, check it's not null)
-                 */
+        */
+        
+        //        2.5. public string RegisterUser(string login, string password, string title)
+        //        2.5.4. if args are not null=> if exists throws exception
+        //        2.5.5. if args are not null=> if doesn't exist Generates and returns SessionId (check it's valid, check it's not null)
+                 
         public String ConvertToBase(long num, int nbase)
         {
             String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";

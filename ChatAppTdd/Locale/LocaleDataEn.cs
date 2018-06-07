@@ -22,14 +22,14 @@ namespace ChatAppTdd.Locale
         {
             //SingUpErrors
             _SingUpErrors.Add(SignUpFailType.LoginExists, "Login already exists");
-            _SingUpErrors.Add(SignUpFailType.LoginWrongFormat, "");
-            _SingUpErrors.Add(SignUpFailType.PasswordWrongFormat, "");
-            _SingUpErrors.Add(SignUpFailType.TitleWrongFormat, "");
+            _SingUpErrors.Add(SignUpFailType.LoginWrongFormat, "Wrong login format");
+            _SingUpErrors.Add(SignUpFailType.PasswordWrongFormat, "Wrong password format");
+            _SingUpErrors.Add(SignUpFailType.TitleWrongFormat, "Wrong title format");
             _SingUpErrors.Add(SignUpFailType.Error, "Error. Try again later");
             //LoginErrors
             _LoginErrors.Add(LoginFailType.WrongLogin, "Login does not exist");
-            _LoginErrors.Add(LoginFailType.WrongPassword, "");
-            _LoginErrors.Add(LoginFailType.NetworkError, "");
+            _LoginErrors.Add(LoginFailType.WrongPassword, "Wrong password");
+            _LoginErrors.Add(LoginFailType.NetworkError, "Network error");
             _LoginErrors.Add(LoginFailType.Error, "Error. Try again later");
         }
 
