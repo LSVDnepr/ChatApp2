@@ -15,6 +15,8 @@ namespace ChatAppTdd.Droid.ChatModule
     [Activity(Label = "ChatActivity")]
     public class ChatActivity : Activity
     {
+        public static string Extras_Key = "74185296";
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

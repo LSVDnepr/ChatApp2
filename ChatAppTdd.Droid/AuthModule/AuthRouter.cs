@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using ChatAppTdd.AuthModule;
+using ChatAppTdd.Droid.ChatModule;
+using ChatAppTdd.Droid.RegistrationModule;
 
 namespace ChatAppTdd.Droid.AuthModule
 {
@@ -24,18 +26,27 @@ namespace ChatAppTdd.Droid.AuthModule
 
         public void MoveToChat(string sessionId, string userId)
         {
-          /*  var intent = new Intent(_context, typeof(DetailedInfoActivity));
-            intent.PutExtra(DetailedInfoActivity.EntityId_ExtraKey, entityId);
-            _context.StartActivity(intent);*/
+            if (sessionId==null)
+            {
+                throw new ArgumentNullException("Passed session Id is null");
+            }
+
+            if (userId == null)
+            {
+                throw new ArgumentNullException("Passed user Id is null");
+            }
+
+            var intent = new Intent(_context, typeof(ChatActivity));
+            intent.PutExtra(ChatActivity.Extras_Key, new string[] { sessionId, userId });
+            _context.StartActivity(intent);
         }
 
        
 
         public void MoveToRegistration()
         {
-         /*   var intent = new Intent(_context, typeof(DetailedInfoActivity));
-            intent.PutExtra(DetailedInfoActivity.EntityId_ExtraKey, entityId);
-            _context.StartActivity(intent);*/
+            var intent = new Intent(_context, typeof(RegistrationActivity));
+            _context.StartActivity(intent);
         }
     }
 }
