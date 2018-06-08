@@ -77,6 +77,10 @@
       <DependentUpon>ChatPageVC.cs</DependentUpon>
     </Compile>
     <Compile Include="AuthModule\AuthRouter.cs" />
+    <Compile Include="AuthPageView.cs" />
+    <Compile Include="AuthPageView.designer.cs">
+      <DependentUpon>AuthPageView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewController.designer.cs">
@@ -85,6 +89,7 @@
     <Compile Include="ViewController.cs" />
     <InterfaceDefinition Include="Main.storyboard" />
     <InterfaceDefinition Include="Resources\LaunchScreen.xib" />
+    <InterfaceDefinition Include="AuthPageView.xib" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
