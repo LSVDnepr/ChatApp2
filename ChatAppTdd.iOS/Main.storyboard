@@ -5,7 +5,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="218">
             <objects>
                 <navigationController id="219" sceneMemberID="viewController">
@@ -14,16 +14,17 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue id="272" destination="228" kind="relationship" relationship="rootViewController"/>
+                        <segue destination="228" kind="relationship" relationship="rootViewController" id="272"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="222" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-480" y="-36"/>
         </scene>
+        <!--Authorize-->
         <scene sceneID="227">
             <objects>
-                <viewController id="228" sceneMemberID="viewController" customClass="AuthorizeVC" storyboardIdentifier="AuthorizeVC" useStoryboardIdentifierAsRestorationIdentifier="YES">
+                <viewController storyboardIdentifier="AuthorizeVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="228" customClass="AuthorizeVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="225"/>
                         <viewControllerLayoutGuide type="bottom" id="226"/>
@@ -32,16 +33,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="1717" customClass="AuthPageView" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="20" y="64" width="374" height="672"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint id="1792" firstItem="1717" firstAttribute="leading" secondItem="229" secondAttribute="leadingMargin"/>
+                            <constraint id="1830" firstItem="229" firstAttribute="trailingMargin" secondItem="1717" secondAttribute="trailing"/>
+                            <constraint id="1868" firstItem="226" firstAttribute="top" secondItem="1717" secondAttribute="bottom"/>
+                            <constraint id="1906" firstItem="1717" firstAttribute="top" secondItem="225" secondAttribute="bottom"/>
+                        </constraints>
                     </view>
-                    <navigationItem id="271" key="navigationItem" title="Authorize"/>
+                    <navigationItem key="navigationItem" title="Authorize" id="271"/>
+                    <connections>
+                        <outlet property="_authPageView" destination="1717" id="name-outlet-1717"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="230" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="34" y="-33"/>
         </scene>
+        <!--RegisterVC-->
         <scene sceneID="234">
             <objects>
-                <viewController id="235" sceneMemberID="viewController" customClass="RegisterVC" storyboardIdentifier="RegisterVC" useStoryboardIdentifierAsRestorationIdentifier="YES">
+                <viewController storyboardIdentifier="RegisterVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="235" customClass="RegisterVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="232"/>
                         <viewControllerLayoutGuide type="bottom" id="233"/>
@@ -49,16 +66,26 @@
                     <view key="view" contentMode="scaleToFill" id="236">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" colorSpace="calibratedWhite" white="0.333333333333333" alpha="1"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register view" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1012" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                <rect key="frame" x="73" y="147" width="289" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="237" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="534" y="-34"/>
         </scene>
+        <!--Chat PageVC-->
         <scene sceneID="241">
             <objects>
-                <viewController id="242" sceneMemberID="viewController" customClass="ChatPageVC" storyboardIdentifier="ChatPageVC" useStoryboardIdentifierAsRestorationIdentifier="YES">
+                <viewController storyboardIdentifier="ChatPageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="242" customClass="ChatPageVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="239"/>
                         <viewControllerLayoutGuide type="bottom" id="240"/>
@@ -66,7 +93,16 @@
                     <view key="view" contentMode="scaleToFill" id="243">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chat Page" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1235" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                                <rect key="frame" x="116" y="151" width="233" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="244" userLabel="First Responder" sceneMemberID="firstResponder"/>

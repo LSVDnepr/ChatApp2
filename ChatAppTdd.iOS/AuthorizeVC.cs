@@ -1,6 +1,9 @@
 using Foundation;
 using System;
 using UIKit;
+using ChatAppTdd.AuthModule;
+using ChatAppTdd.Repository;
+using ChatAppTdd.iOS.AuthModule;
 
 namespace ChatAppTdd.iOS
 {
@@ -9,5 +12,21 @@ namespace ChatAppTdd.iOS
         public AuthorizeVC (IntPtr handle) : base (handle)
         {
         }
+
+
+		public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+               InitializeViper();
+        }
+
+
+        private void InitializeViper()
+		{
+			IAuthPresenter presenter = new AuthPresenter(_authPageView, new AuthRouter(NavigationController));
+			IAuthInteractor interactor = new AuthInteractor(new UserDataService(), presenter);
+
+		}
+
     }
 }
