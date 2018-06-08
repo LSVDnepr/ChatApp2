@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14111" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AuthPageView">
+            <connections>
+                <outlet property="_authPageView" destination="1" id="name-outlet-1"/>
+                <outlet property="_loginLabelTxt" destination="137" id="name-outlet-137"/>
+                <outlet property="_loginField" destination="141" id="name-outlet-141"/>
+                <outlet property="_passwordLabelText" destination="139" id="name-outlet-139"/>
+                <outlet property="_passwordField" destination="143" id="name-outlet-143"/>
+                <outlet property="_loginBtn" destination="145" id="name-outlet-145"/>
+                <outlet property="_signUpBtn" destination="147" id="name-outlet-147"/>
+                <outlet property="_langSwitch" destination="152" id="name-outlet-152"/>
+                <outlet property="_langLabel" destination="154" id="name-outlet-154"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <color key="backgroundColor" customColorSpace="sRGB" colorSpace="calibratedRGB" red="0.14901960784313725" green="0.19607843137254902" blue="0.2196078431372549" alpha="1"/>
+            <point key="canvasLocation" x="357" y="13"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login label text not set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="137" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="15" y="35" width="384" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password label text not set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="139" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="15" y="115.5" width="384" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="141" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="15" y="70.5" width="384" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <accessibility key="accessibilityConfiguration" hint="login"/>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="143" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="15" y="151" width="384" height="30"/>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <accessibility key="accessibilityConfiguration" hint="password"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="145" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="15" y="196" width="384" height="30"/>
+                    <color key="backgroundColor" colorSpace="calibratedRGB" red="0.69019607843137254" green="0.74509803921568629" blue="0.77254901960784317" alpha="1"/>
+                    <state key="normal" title="Login button text not set">
+                        <color key="titleColor" colorSpace="calibratedWhite" white="0" alpha="1"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="147" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="15" y="241" width="384" height="30"/>
+                    <color key="backgroundColor" colorSpace="calibratedRGB" red="0.69019607843137254" green="0.74509803921568629" blue="0.77254901960784317" alpha="1"/>
+                    <state key="normal" title="Sign up button text not set">
+                        <color key="titleColor" colorSpace="calibratedWhite" white="0" alpha="1"/>
+                    </state>
+                </button>
+                <view contentMode="scaleToFill" id="149" translatesAutoresizingMaskIntoConstraints="NO">
+                    <rect key="frame" x="15" y="296" width="384" height="395"/>
+                    <color key="backgroundColor" colorSpace="calibratedRGB" red="0.14901960784313725" green="0.19607843137254902" blue="0.2196078431372549" alpha="1"/>
+                    <subviews>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="152" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                            <rect key="frame" x="78" y="48" width="51" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </switch>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="En / Ru" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="154" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                            <rect key="frame" x="200" y="52" width="66" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint id="380" firstItem="137" firstAttribute="top" secondItem="1" secondAttribute="top" constant="35"/>
+                <constraint id="382" firstItem="137" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="15"/>
+                <constraint id="387" firstItem="1" firstAttribute="trailing" secondItem="137" secondAttribute="trailing" constant="15"/>
+                <constraint id="389" firstItem="141" firstAttribute="top" secondItem="137" secondAttribute="bottom" constant="15"/>
+                <constraint id="391" firstItem="137" firstAttribute="width" secondItem="141" secondAttribute="width"/>
+                <constraint id="398" firstItem="141" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="15"/>
+                <constraint id="400" firstItem="1" firstAttribute="trailing" secondItem="141" secondAttribute="trailing" constant="15"/>
+                <constraint id="402" firstItem="139" firstAttribute="top" secondItem="141" secondAttribute="bottom" constant="15"/>
+                <constraint id="404" firstItem="141" firstAttribute="width" secondItem="139" secondAttribute="width"/>
+                <constraint id="411" firstItem="139" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="15"/>
+                <constraint id="413" firstItem="1" firstAttribute="trailing" secondItem="139" secondAttribute="trailing" constant="15"/>
+                <constraint id="415" firstItem="143" firstAttribute="top" secondItem="139" secondAttribute="bottom" constant="15"/>
+                <constraint id="417" firstItem="139" firstAttribute="width" secondItem="143" secondAttribute="width"/>
+                <constraint id="423" firstItem="1" firstAttribute="bottom" secondItem="149" secondAttribute="bottom" constant="45"/>
+                <constraint id="425" firstItem="149" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="15"/>
+                <constraint id="427" firstItem="1" firstAttribute="trailing" secondItem="149" secondAttribute="trailing" constant="15"/>
+                <constraint id="433" firstItem="143" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="15"/>
+                <constraint id="435" firstItem="1" firstAttribute="trailing" secondItem="143" secondAttribute="trailing" constant="15"/>
+                <constraint id="437" firstItem="145" firstAttribute="top" secondItem="143" secondAttribute="bottom" constant="15"/>
+                <constraint id="439" firstItem="143" firstAttribute="width" secondItem="145" secondAttribute="width"/>
+                <constraint id="444" firstItem="145" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="15"/>
+                <constraint id="446" firstItem="1" firstAttribute="trailing" secondItem="145" secondAttribute="trailing" constant="15"/>
+                <constraint id="448" firstItem="147" firstAttribute="top" secondItem="145" secondAttribute="bottom" constant="15"/>
+                <constraint id="450" firstItem="145" firstAttribute="width" secondItem="147" secondAttribute="width"/>
+                <constraint id="455" firstItem="147" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="15"/>
+                <constraint id="457" firstItem="1" firstAttribute="trailing" secondItem="147" secondAttribute="trailing" constant="15"/>
+                <constraint id="459" firstItem="149" firstAttribute="top" secondItem="147" secondAttribute="bottom" constant="25"/>
+                <constraint id="461" firstItem="147" firstAttribute="width" secondItem="149" secondAttribute="width"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
